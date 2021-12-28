@@ -378,7 +378,7 @@ class Darknet(nn.Module):
                 
                 #Output the result
                 x = x.data
-                x = predict_transform(x, inp_dim, anchors, num_classes, CUDA)
+                x = predict_transform(x, inp_dim, anchors, num_classes, CUDA=False)
                 
                 if type(x) == int:
                     continue

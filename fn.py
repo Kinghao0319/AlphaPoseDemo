@@ -2,7 +2,9 @@ import torch
 import re
 import os
 import collections
-from torch._six import string_classes, int_classes
+# from torch._six import string_classes, int_classes
+int_classes = int
+string_classes = str
 import cv2
 from opt import opt
 from tqdm import tqdm
@@ -195,7 +197,7 @@ def vis_frame(frame, im_res, format='coco'):
             cv2.circle(bg, (int(cor_x/2), int(cor_y/2)), 2, p_color[n], -1)
             # Now create a mask of logo and create its inverse mask also
             transparency = max(0, min(1, kp_scores[n]))
-            img = cv2.addWeighted(bg, transparency, img, 1-transparency, 0)
+            img = cv2.addWeighted(bg, 0.5, img, 0.5, 0)
         # Draw limbs
         for i, (start_p, end_p) in enumerate(l_pair):
             if start_p in part_line and end_p in part_line:
@@ -210,11 +212,11 @@ def vis_frame(frame, im_res, format='coco'):
                 length = ((Y[0] - Y[1]) ** 2 + (X[0] - X[1]) ** 2) ** 0.5
                 angle = math.degrees(math.atan2(Y[0] - Y[1], X[0] - X[1]))
                 stickwidth = (kp_scores[start_p] + kp_scores[end_p]) + 1
-                polygon = cv2.ellipse2Poly((int(mX),int(mY)), (int(length/2), stickwidth), int(angle), 0, 360, 1)
+                polygon = cv2.ellipse2Poly((int(mX),int(mY)), (int(length/2), int(stickwidth)), int(angle), 0, 360, 1)
                 cv2.fillConvexPoly(bg, polygon, line_color[i])
                 #cv2.line(bg, start_xy, end_xy, line_color[i], (2 * (kp_scores[start_p] + kp_scores[end_p])) + 1)
                 transparency = max(0, min(1, 0.5*(kp_scores[start_p] + kp_scores[end_p])))
-                img = cv2.addWeighted(bg, transparency, img, 1-transparency, 0)
+                img = cv2.addWeighted(bg, 0.5, img, 0.5, 0)
     img = cv2.resize(img,(width,height),interpolation=cv2.INTER_CUBIC)
     return img
 
