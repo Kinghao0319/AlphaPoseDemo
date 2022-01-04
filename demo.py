@@ -56,7 +56,7 @@ if __name__ == "__main__":
         pose_model = InferenNet_fast(4 * 1 + 1, pose_dataset)
     else:
         pose_model = InferenNet(4 * 1 + 1, pose_dataset)
-    pose_model.cuda()
+    pose_model.cpu()
     pose_model.eval()
 
     runtime_profile = {
@@ -91,7 +91,7 @@ if __name__ == "__main__":
             num_batches = datalen // batchSize + leftover
             hm = []
             for j in range(num_batches):
-                inps_j = inps[j*batchSize:min((j +  1)*batchSize, datalen)].cuda()
+                inps_j = inps[j*batchSize:min((j +  1)*batchSize, datalen)].cpu()
                 hm_j = pose_model(inps_j)
                 hm.append(hm_j)
             hm = torch.cat(hm)
