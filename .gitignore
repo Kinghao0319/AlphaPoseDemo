@@ -2,6 +2,8 @@ human_detection/output
 examples/results
 examples/res
 examples/video
+examples/frames
+examples/demo
 PoseFlow/__pycache__
 PoseFlow/*.npy
 PoseFlow/alpha-pose-results-test.json
