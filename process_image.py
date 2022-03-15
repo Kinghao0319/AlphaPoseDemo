@@ -1,4 +1,5 @@
 # Kinghao 2022/1/22
+
 import os,json
 from PIL import Image
 points_file=open('./examples/res/point-results.json')
@@ -16,8 +17,8 @@ if __name__ == '__main__':
         cur_image=Image.new('RGB',(frame0.width,frame0.height),(256,256,256))
         i=0
         for p in points_list:
-            for x in range(int(p[0])-2,int(p[0])+3):
-                for y in range(int(p[1])-2,int(p[1])+3):
+            for x in range(int(p[0])-4,int(p[0])+5):
+                for y in range(int(p[1])-4,int(p[1])+5):
                     if i==5 or i==6:
                         cur_image.putpixel((x, y), (0, 0, 255))
                     elif i==7 or i==8:

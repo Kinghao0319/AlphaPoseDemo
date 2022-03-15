@@ -1,4 +1,5 @@
 # Kinghao 2022/1/22
+
 import os,json,math
 from PIL import Image
 points_file=open('./examples/res/point-results.json')

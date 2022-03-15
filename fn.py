@@ -180,7 +180,8 @@ def vis_frame(frame, im_res, format='coco'):
     im_name = im_res['imgname'].split('/')[-1]
     img = frame
     height,width = img.shape[:2]
-    img = cv2.resize(img,(int(width/2), int(height/2)))
+    # img = cv2.resize(img,(int(width/2), int(height/2)))
+    img=np.zeros((int(height/2), int(width/2), 3), dtype=np.uint8)
     for human in im_res['result']:
         part_line = {}
         kp_preds = human['keypoints']
